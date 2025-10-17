@@ -1,11 +1,11 @@
 import { Card } from "@/components/ui/card";
-import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, Legend } from "recharts";
+import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Cell, LabelList } from "recharts";
 import { TrendingDown, Users, Zap, DollarSign } from "lucide-react";
 
 const FinancialBenefitsSlide = () => {
   const capacityData = [
-    { name: "Capacidad Actual", value: 100, color: "hsl(var(--muted))" },
-    { name: "Nueva Capacidad", value: 200, color: "hsl(var(--secondary))" },
+    { name: "Capacidad Actual", valor: 100, color: "hsl(var(--muted))" },
+    { name: "Capacidad Esperada", valor: 200, color: "hsl(var(--secondary))" },
   ];
 
   const benefits = [
@@ -50,38 +50,71 @@ const FinancialBenefitsSlide = () => {
         </p>
       </div>
 
-      <div className="grid lg:grid-cols-2 gap-8">
-        <Card className="p-8">
-          <h3 className="text-2xl font-bold mb-6 text-center">Incremento de Capacidad</h3>
-          <ResponsiveContainer width="100%" height={300}>
-            <PieChart>
-              <Pie
+      <div className="grid lg:grid-cols-[1.25fr,1fr] gap-8 items-stretch">
+        <Card className="p-8 flex flex-col gap-6 border-2 border-secondary/20 bg-gradient-to-br from-secondary/5 via-background to-secondary/10">
+          <div className="space-y-2 text-center lg:text-left">
+            <h3 className="text-3xl font-bold text-secondary">Incremento de Capacidad</h3>
+            <p className="text-muted-foreground text-base">
+              Comparativa de puntos de atención que puede cubrir cada persona con y sin el chatbot IA.
+            </p>
+          </div>
+
+          <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6">
+            <ResponsiveContainer width="100%" height={320}>
+              <BarChart
                 data={capacityData}
-                cx="50%"
-                cy="50%"
-                labelLine={false}
-                label={({ name, value }) => `${name}: ${value}%`}
-                outerRadius={100}
-                fill="#8884d8"
-                dataKey="value"
+                barSize={88}
+                barCategoryGap={48}
+                margin={{ top: 32, right: 24, bottom: 0, left: 0 }}
               >
-                {capacityData.map((entry, index) => (
-                  <Cell key={`cell-${index}`} fill={entry.color} />
-                ))}
-              </Pie>
-              <Tooltip
-                formatter={(value: number) => [`${value}%`, "Capacidad"]}
-                contentStyle={{
-                  backgroundColor: "hsl(var(--card))",
-                  border: "1px solid hsl(var(--border))",
-                  borderRadius: "8px",
-                }}
-              />
-            </PieChart>
-          </ResponsiveContainer>
-          <div className="mt-6 space-y-2 text-center">
-            <p className="text-3xl font-bold text-secondary">2x la capacidad</p>
-            <p className="text-muted-foreground">con los mismos empleados</p>
+                <CartesianGrid strokeDasharray="3 3" opacity={0.12} />
+                <XAxis
+                  dataKey="name"
+                  tick={{ fill: "hsl(var(--muted-foreground))", fontSize: 12 }}
+                  tickLine={false}
+                  axisLine={{ stroke: "hsl(var(--border))" }}
+                />
+                <YAxis
+                  tick={{ fill: "hsl(var(--muted-foreground))", fontSize: 12 }}
+                  axisLine={{ stroke: "hsl(var(--border))" }}
+                  tickLine={false}
+                  domain={[0, 220]}
+                  tickFormatter={(value) => `${value}%`}
+                  label={{ value: "% capacidad por persona", angle: -90, position: "insideLeft", fill: "hsl(var(--muted-foreground))" }}
+                />
+                <Tooltip
+                  formatter={(value: number) => [`${value}%`, "Capacidad"]}
+                  contentStyle={{
+                    backgroundColor: "hsl(var(--card))",
+                    border: "1px solid hsl(var(--border))",
+                    borderRadius: "8px",
+                  }}
+                />
+                <Bar dataKey="valor" radius={[12, 12, 0, 0]}>
+                  {capacityData.map((entry, index) => (
+                    <Cell key={`cell-${index}`} fill={entry.color} />
+                  ))}
+                  <LabelList
+                    dataKey="valor"
+                    position="top"
+                    formatter={(value: number) => `${value}%`}
+                    style={{ fill: "hsl(var(--secondary))", fontWeight: 600 }}
+                  />
+                </Bar>
+              </BarChart>
+            </ResponsiveContainer>
+
+            <div className="lg:w-56 space-y-4">
+              <div className="rounded-2xl bg-secondary/10 px-4 py-3 text-center lg:text-left">
+                <p className="text-sm font-semibold text-secondary">Resultado esperado</p>
+                <p className="text-3xl font-bold text-secondary">2x capacidad</p>
+                <p className="text-xs text-muted-foreground">Con el mismo equipo humano</p>
+              </div>
+              <div className="space-y-2 text-sm text-muted-foreground">
+                <p><span className="font-semibold text-secondary">100%</span> capacidad actual promedio.</p>
+                <p><span className="font-semibold text-secondary">200%</span> objetivo con IA asistiendo en coordinación.</p>
+              </div>
+            </div>
           </div>
         </Card>
 

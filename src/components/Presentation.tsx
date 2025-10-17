@@ -6,6 +6,10 @@ import ObjectiveSlide from "./slides/ObjectiveSlide";
 import CostComparisonSlide from "./slides/CostComparisonSlide";
 import FinancialBenefitsSlide from "./slides/FinancialBenefitsSlide";
 import QualityBenefitsSlide from "./slides/QualityBenefitsSlide";
+import MetricsIntroSlide from "./slides/MetricsIntroSlide";
+import OperationalMetricsSlide from "./slides/OperationalMetricsSlide";
+import FinancialMetricsSlide from "./slides/FinancialMetricsSlide";
+import QualitySummarySlide from "./slides/QualitySummarySlide";
 import TimelineSlide from "./slides/TimelineSlide";
 import ConclusionSlide from "./slides/ConclusionSlide";
 
@@ -15,6 +19,10 @@ const slides = [
   CostComparisonSlide,
   FinancialBenefitsSlide,
   QualityBenefitsSlide,
+  MetricsIntroSlide,
+  OperationalMetricsSlide,
+  FinancialMetricsSlide,
+  QualitySummarySlide,
   TimelineSlide,
   ConclusionSlide,
 ];

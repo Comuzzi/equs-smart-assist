@@ -1,5 +1,5 @@
 import { Card } from "@/components/ui/card";
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from "recharts";
 import { Database, Clock, UserCheck, Mail, TrendingUp, Sparkles } from "lucide-react";
 
 const QualityBenefitsSlide = () => {
@@ -20,7 +20,7 @@ const QualityBenefitsSlide = () => {
     },
     {
       icon: Clock,
-      title: "Disponibilidad Total",
+      title: "Disponibilidad Adaptada al Cliente",
       items: [
         "Atención 24/7/365",
         "Sin turnos rotativos",
@@ -29,7 +29,7 @@ const QualityBenefitsSlide = () => {
     },
     {
       icon: Mail,
-      title: "Automatización Proactiva",
+      title: "Facilidad de Integración con:",
       items: [
         "Envío automático de emails",
         "Confirmaciones de pedido",
@@ -50,7 +50,7 @@ const QualityBenefitsSlide = () => {
       title: "Personalidad Adaptable",
       items: [
         "Tono personalizable",
-        "Refleja valores de marca",
+        "Refleja valores de la empresa",
         "100% configurable",
       ],
     },
@@ -66,67 +66,87 @@ const QualityBenefitsSlide = () => {
   ];
 
   return (
-    <div className="space-y-8">
-      <div className="text-center mb-8">
-        <div className="inline-flex items-center gap-2 bg-primary/10 px-4 py-2 rounded-full mb-4">
-          <Sparkles className="h-5 w-5 text-primary" />
-          <span className="text-sm font-semibold text-primary">Calidad y Experiencia</span>
-        </div>
-        <h2 className="text-5xl font-bold text-foreground mb-4">
-          Beneficios Estratégicos
-        </h2>
-        <p className="text-xl text-muted-foreground">
-          Mejora significativa en calidad de servicio y datos
-        </p>
-      </div>
+    <div className="relative w-full min-h-[760px] overflow-hidden rounded-3xl border border-border bg-gradient-to-br from-background via-primary/5 to-background shadow-2xl">
+      <div className="absolute inset-0 opacity-40" style={{ background: "radial-gradient(circle at 20% 25%, rgba(59,130,246,0.25), transparent 55%), radial-gradient(circle at 80% 10%, rgba(236,72,153,0.2), transparent 50%)" }} />
 
-      <div className="grid lg:grid-cols-3 gap-6 mb-8">
-        <Card className="p-6 lg:col-span-1">
-          <h3 className="text-xl font-bold mb-4 text-center">Tiempo de Respuesta</h3>
-          <ResponsiveContainer width="100%" height={250}>
-            <BarChart data={responseTimeData}>
-              <CartesianGrid strokeDasharray="3 3" opacity={0.1} />
-              <XAxis dataKey="name" />
-              <YAxis label={{ value: 'Minutos', angle: -90, position: 'insideLeft' }} />
-              <Tooltip
-                formatter={(value: number) => [`${value} min`, "Tiempo"]}
-                contentStyle={{
-                  backgroundColor: "hsl(var(--card))",
-                  border: "1px solid hsl(var(--border))",
-                  borderRadius: "8px",
-                }}
-              />
-              <Bar dataKey="tiempo" fill="hsl(var(--primary))" radius={[8, 8, 0, 0]} />
-            </BarChart>
-          </ResponsiveContainer>
-          <div className="mt-4 p-3 bg-primary/10 rounded-lg text-center">
-            <p className="text-xl font-bold text-primary">15x más rápido</p>
-            <p className="text-sm text-muted-foreground">respuesta inmediata</p>
+      <div className="relative z-10 flex h-full flex-col gap-10 p-10">
+        <div className="text-center space-y-3">
+          <div className="inline-flex items-center gap-2 bg-primary/10 px-5 py-2 rounded-full mb-6">
+            <Sparkles className="h-5 w-5 text-primary" />
+            <span className="text-sm font-semibold text-primary">Calidad y Experiencia</span>
           </div>
-        </Card>
+          <h2 className="text-4xl font-bold text-foreground">
+            Beneficios Estratégicos
+          </h2>
+          <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
+            Mejora significativa en calidad de servicio y datos
+          </p>
+        </div>
 
-        <div className="lg:col-span-2 grid grid-cols-2 gap-4">
-          {features.map((feature, index) => (
-            <Card
-              key={index}
-              className="p-5 border-2 hover:border-primary/50 transition-all group"
-            >
-              <div className="flex items-start gap-3 mb-3">
-                <div className="inline-flex items-center justify-center w-10 h-10 rounded-lg bg-primary/10 group-hover:bg-primary/20 transition-colors flex-shrink-0">
-                  <feature.icon className="h-5 w-5 text-primary" />
-                </div>
-                <h4 className="text-base font-bold">{feature.title}</h4>
+        <div className="grid gap-6 lg:grid-cols-[1.1fr,1.4fr]">
+          <Card className="relative overflow-hidden border border-primary/15 bg-card/80 p-6 backdrop-blur-sm">
+            <div className="absolute inset-0 opacity-0 transition-opacity duration-300 hover:opacity-100" style={{ background: "linear-gradient(135deg, rgba(59,130,246,0.2), rgba(236,72,153,0.15))" }} />
+            <div className="relative flex h-full flex-col gap-4">
+              <h3 className="text-xl font-bold text-center text-primary">Tiempo de Respuesta</h3>
+              <div className="flex-1 flex items-end" style={{ minHeight: 260 }}>
+                <ResponsiveContainer width="100%" height="100%">
+                  <BarChart data={responseTimeData} barSize={70} margin={{ top: 10, right: 16, left: 8, bottom: 0 }}>
+                    <CartesianGrid strokeDasharray="3 3" opacity={0.12} />
+                    <XAxis dataKey="name" tick={{ fill: "hsl(var(--muted-foreground))" }} tickLine={false} axisLine={{ stroke: "hsl(var(--border))" }} />
+                    <YAxis
+                      label={{ value: "Minutos", angle: -90, position: "insideLeft", fill: "hsl(var(--muted-foreground))" }}
+                      tick={{ fill: "hsl(var(--muted-foreground))" }}
+                      tickLine={false}
+                      axisLine={{ stroke: "hsl(var(--border))" }}
+                      domain={[0, 16]}
+                    />
+                    <Tooltip
+                      formatter={(value: number) => [`${value} min`, "Tiempo"]}
+                      contentStyle={{
+                        backgroundColor: "hsl(var(--card))",
+                        border: "1px solid hsl(var(--border))",
+                        borderRadius: "10px",
+                      }}
+                    />
+                    <Bar dataKey="tiempo" radius={[14, 14, 0, 0]}>
+                      {responseTimeData.map((entry, index) => (
+                        <Cell key={`cell-${index}`} fill={entry.color} />
+                      ))}
+                    </Bar>
+                  </BarChart>
+                </ResponsiveContainer>
               </div>
-              <ul className="space-y-1.5 text-sm text-muted-foreground">
-                {feature.items.map((item, i) => (
-                  <li key={i} className="flex items-start">
-                    <span className="mr-2">•</span>
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
-            </Card>
-          ))}
+              <div className="rounded-2xl bg-primary/10 px-4 py-3 text-center">
+                <p className="text-2xl font-bold text-primary">15x más rápido</p>
+                <p className="text-sm text-muted-foreground">respuesta inmediata</p>
+              </div>
+            </div>
+          </Card>
+
+          <div className="grid gap-4 sm:grid-cols-2">
+            {features.map((feature, index) => (
+              <Card
+                key={index}
+                className="group relative h-full border border-primary/15 bg-card/80 p-6 backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:border-primary/40 hover:shadow-lg"
+              >
+                <div className="absolute inset-0 rounded-2xl border border-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" style={{ background: "linear-gradient(135deg, rgba(59,130,246,0.15), rgba(236,72,153,0.15))" }} />
+                <div className="relative space-y-3">
+                  <div className="inline-flex items-center justify-center rounded-xl bg-primary/10 p-3 text-primary">
+                    <feature.icon className="h-5 w-5" />
+                  </div>
+                  <h4 className="text-base font-semibold text-foreground">{feature.title}</h4>
+                  <ul className="space-y-1.5 text-sm text-muted-foreground">
+                    {feature.items.map((item, i) => (
+                      <li key={i} className="flex items-start gap-2">
+                        <span className="mt-[6px] h-1.5 w-1.5 rounded-full bg-primary/60" />
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </Card>
+            ))}
+          </div>
         </div>
       </div>
     </div>

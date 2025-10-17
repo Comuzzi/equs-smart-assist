@@ -53,29 +53,31 @@ const CostComparisonSlide = () => {
       </div>
 
       <div className="grid lg:grid-cols-2 gap-8">
-        <Card className="p-8">
-          <h3 className="text-2xl font-bold mb-6 text-center">Costo por Cliente</h3>
-          <ResponsiveContainer width="100%" height={300}>
-            <BarChart data={comparisonData}>
-              <CartesianGrid strokeDasharray="3 3" opacity={0.1} />
-              <XAxis dataKey="name" />
-              <YAxis label={{ value: 'USD', angle: -90, position: 'insideLeft' }} />
-              <Tooltip
-                formatter={(value: number) => [`$${value.toFixed(3)} USD`, "Costo"]}
-                contentStyle={{
-                  backgroundColor: "hsl(var(--card))",
-                  border: "1px solid hsl(var(--border))",
-                  borderRadius: "8px",
-                }}
-              />
-              <Bar dataKey="costo" radius={[8, 8, 0, 0]}>
-                {comparisonData.map((entry, index) => (
-                  <Cell key={`cell-${index}`} fill={entry.color} />
-                ))}
-              </Bar>
-            </BarChart>
-          </ResponsiveContainer>
-          <div className="mt-6 p-4 bg-secondary/10 rounded-lg text-center">
+        <Card className="flex flex-col gap-6 p-8">
+          <h3 className="text-2xl font-bold text-center">Costo por Cliente</h3>
+          <div className="flex-1 flex items-end" style={{ minHeight: 340 }}>
+            <ResponsiveContainer width="100%" height="100%">
+              <BarChart data={comparisonData} barSize={110} margin={{ top: 10, right: 24, left: 16, bottom: 0 }}>
+                <CartesianGrid strokeDasharray="3 3" opacity={0.1} />
+                <XAxis dataKey="name" />
+                <YAxis domain={[0, 1.1]} label={{ value: 'USD', angle: -90, position: 'insideLeft' }} />
+                <Tooltip
+                  formatter={(value: number) => [`$${value.toFixed(3)} USD`, "Costo"]}
+                  contentStyle={{
+                    backgroundColor: "hsl(var(--card))",
+                    border: "1px solid hsl(var(--border))",
+                    borderRadius: "8px",
+                  }}
+                />
+                <Bar dataKey="costo" radius={[8, 8, 0, 0]}>
+                  {comparisonData.map((entry, index) => (
+                    <Cell key={`cell-${index}`} fill={entry.color} />
+                  ))}
+                </Bar>
+              </BarChart>
+            </ResponsiveContainer>
+          </div>
+          <div className="p-4 bg-secondary/10 rounded-lg text-center">
             <p className="text-2xl font-bold text-secondary">8-10x más económico</p>
             <p className="text-sm text-muted-foreground mt-1">con el sistema de IA</p>
           </div>

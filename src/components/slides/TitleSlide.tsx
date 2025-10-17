@@ -1,10 +1,10 @@
-import { Bot, Sparkles } from "lucide-react";
+import { Sparkles } from "lucide-react";
 
 const TitleSlide = () => {
   return (
     <div className="bg-gradient-to-br from-primary via-primary-glow to-secondary rounded-2xl shadow-2xl p-16 text-center min-h-[600px] flex flex-col items-center justify-center">
       <div className="inline-flex items-center justify-center w-24 h-24 rounded-full bg-white/20 backdrop-blur-sm mb-8 animate-pulse">
-        <Bot className="h-12 w-12 text-white" />
+        <img src="/Logo-Lureon-Blanco.PNG" alt="Logo EqusFarma" className="h-16 w-16 object-contain" />
       </div>
       
       <h1 className="text-6xl font-bold text-white mb-6 tracking-tight">
