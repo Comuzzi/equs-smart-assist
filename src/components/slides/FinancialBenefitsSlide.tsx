@@ -3,23 +3,23 @@ import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, Legend } from "recha
 import { TrendingDown, Users, Zap, DollarSign } from "lucide-react";
 
 const FinancialBenefitsSlide = () => {
-  const savingsData = [
-    { name: "Ahorro Mensual", value: 2800, color: "hsl(var(--secondary))" },
-    { name: "Costo Actual", value: 5600, color: "hsl(var(--muted))" },
+  const capacityData = [
+    { name: "Capacidad Actual", value: 100, color: "hsl(var(--muted))" },
+    { name: "Nueva Capacidad", value: 200, color: "hsl(var(--secondary))" },
   ];
 
   const benefits = [
     {
       icon: TrendingDown,
-      title: "30-70% Reducción",
+      title: "50% Reducción",
       description: "De carga operativa para empleados existentes",
-      highlight: "50% promedio",
+      highlight: "Menos trabajo manual",
     },
     {
-      icon: DollarSign,
-      title: "$2,800 USD/mes",
-      description: "Ahorro directo eliminando 2 de 4 empleados",
-      highlight: "Sin incluir reclutamiento",
+      icon: Users,
+      title: "Duplicar Capacidad",
+      description: "Con reducción del 50% de carga operativa, duplicas la capacidad de atención en coordinación",
+      highlight: "Mismos empleados",
     },
     {
       icon: Zap,
@@ -28,10 +28,10 @@ const FinancialBenefitsSlide = () => {
       highlight: "Auto-ajustable",
     },
     {
-      icon: Users,
+      icon: DollarSign,
       title: "Escalabilidad",
       description: "Sin necesidad de contratar ante aumento de demanda",
-      highlight: "Infinita",
+      highlight: "Ahorro continuo",
     },
   ];
 
@@ -40,37 +40,37 @@ const FinancialBenefitsSlide = () => {
       <div className="text-center mb-8">
         <div className="inline-flex items-center gap-2 bg-secondary/10 px-4 py-2 rounded-full mb-4">
           <TrendingDown className="h-5 w-5 text-secondary" />
-          <span className="text-sm font-semibold text-secondary">Impacto Financiero</span>
+          <span className="text-sm font-semibold text-secondary">Impacto Operativo</span>
         </div>
         <h2 className="text-5xl font-bold text-foreground mb-4">
           Beneficios Económicos
         </h2>
         <p className="text-xl text-muted-foreground">
-          Reducción significativa de costos operativos
+          Más capacidad con los mismos recursos
         </p>
       </div>
 
       <div className="grid lg:grid-cols-2 gap-8">
         <Card className="p-8">
-          <h3 className="text-2xl font-bold mb-6 text-center">Ahorro Proyectado</h3>
+          <h3 className="text-2xl font-bold mb-6 text-center">Incremento de Capacidad</h3>
           <ResponsiveContainer width="100%" height={300}>
             <PieChart>
               <Pie
-                data={savingsData}
+                data={capacityData}
                 cx="50%"
                 cy="50%"
                 labelLine={false}
-                label={({ name, value }) => `${name}: $${value}`}
+                label={({ name, value }) => `${name}: ${value}%`}
                 outerRadius={100}
                 fill="#8884d8"
                 dataKey="value"
               >
-                {savingsData.map((entry, index) => (
+                {capacityData.map((entry, index) => (
                   <Cell key={`cell-${index}`} fill={entry.color} />
                 ))}
               </Pie>
               <Tooltip
-                formatter={(value: number) => [`$${value} USD`, "Monto"]}
+                formatter={(value: number) => [`${value}%`, "Capacidad"]}
                 contentStyle={{
                   backgroundColor: "hsl(var(--card))",
                   border: "1px solid hsl(var(--border))",
@@ -80,8 +80,8 @@ const FinancialBenefitsSlide = () => {
             </PieChart>
           </ResponsiveContainer>
           <div className="mt-6 space-y-2 text-center">
-            <p className="text-3xl font-bold text-secondary">50% de ahorro</p>
-            <p className="text-muted-foreground">en costos de personal mensual</p>
+            <p className="text-3xl font-bold text-secondary">2x la capacidad</p>
+            <p className="text-muted-foreground">con los mismos empleados</p>
           </div>
         </Card>
 

@@ -22,8 +22,8 @@ const ConclusionSlide = () => {
   ];
 
   const impacts = [
-    { label: "Reducción de Costos", value: "50-70%" },
-    { label: "Ahorro Mensual", value: "$2,800+" },
+    { label: "Reducción de Carga", value: "50%" },
+    { label: "Incremento Capacidad", value: "2x" },
     { label: "Tiempo de Respuesta", value: "15x más rápido" },
     { label: "Disponibilidad", value: "24/7/365" },
   ];
