@@ -1,6 +1,6 @@
 import { Card } from "@/components/ui/card";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from "recharts";
-import { DollarSign, Users, Bot } from "lucide-react";
+import { DollarSign, Users, Bot, TrendingDown, AlertCircle, Zap } from "lucide-react";
 
 const CostComparisonSlide = () => {
   const comparisonData = [
@@ -13,17 +13,27 @@ const CostComparisonSlide = () => {
       icon: Users,
       label: "Empleado Humano",
       cost: "$80,000/día",
+      costType: "Costo Fijo",
       clients: "50-60 clientes/día",
       costPerClient: "~$1.00 USD",
       color: "destructive",
+      limitations: [
+        { icon: AlertCircle, text: "Capacidad limitada" },
+        { icon: TrendingDown, text: "Capacidad ociosa en temporada baja" },
+      ],
     },
     {
       icon: Bot,
       label: "Sistema IA",
       cost: "Pago por uso",
+      costType: "Costo Variable",
       clients: "Ilimitado",
       costPerClient: "$0.125 USD",
       color: "secondary",
+      limitations: [
+        { icon: Zap, text: "Sin capacidad ociosa" },
+        { icon: Zap, text: "Escala en temporada alta" },
+      ],
     },
   ];
 
@@ -38,7 +48,7 @@ const CostComparisonSlide = () => {
           Comparación de Costos
         </h2>
         <p className="text-xl text-muted-foreground">
-          Costo por cliente atendido
+          Costo fijo vs. Costo variable del sistema
         </p>
       </div>
 
@@ -79,18 +89,57 @@ const CostComparisonSlide = () => {
                   <detail.icon className={`h-6 w-6 text-${detail.color}`} />
                 </div>
                 <div className="flex-1">
-                  <h4 className="text-xl font-bold mb-3">{detail.label}</h4>
-                  <div className="space-y-2 text-muted-foreground">
+                  <div className="flex items-center justify-between mb-3">
+                    <h4 className="text-xl font-bold">{detail.label}</h4>
+                    <span className={`px-3 py-1 rounded-full text-sm font-semibold ${
+                      detail.costType === "Costo Fijo" 
+                        ? "bg-destructive/10 text-destructive" 
+                        : "bg-secondary/10 text-secondary"
+                    }`}>
+                      {detail.costType}
+                    </span>
+                  </div>
+                  <div className="space-y-2 text-muted-foreground mb-4">
                     <p><span className="font-semibold">Costo diario:</span> {detail.cost}</p>
                     <p><span className="font-semibold">Capacidad:</span> {detail.clients}</p>
                     <p className="text-lg font-bold text-foreground mt-2">
                       {detail.costPerClient} por cliente
                     </p>
                   </div>
+                  <div className="space-y-2 pt-3 border-t">
+                    {detail.limitations.map((limitation, i) => (
+                      <div key={i} className="flex items-center gap-2 text-sm">
+                        <limitation.icon className={`h-4 w-4 ${
+                          detail.color === "destructive" ? "text-destructive" : "text-secondary"
+                        }`} />
+                        <span className={
+                          detail.color === "destructive" ? "text-destructive/80" : "text-secondary/80"
+                        }>
+                          {limitation.text}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
             </Card>
           ))}
+          
+          <Card className="p-6 bg-gradient-to-r from-secondary/10 to-primary/10 border-2 border-secondary/20">
+            <div className="flex items-start gap-3">
+              <div className="inline-flex items-center justify-center w-10 h-10 rounded-lg bg-secondary/20 flex-shrink-0">
+                <Zap className="h-5 w-5 text-secondary" />
+              </div>
+              <div>
+                <h4 className="text-lg font-bold mb-2">Beneficio Clave</h4>
+                <p className="text-muted-foreground">
+                  El sistema se adapta automáticamente a temporadas altas y bajas, 
+                  <span className="font-semibold text-foreground"> eliminando capacidad ociosa</span> y 
+                  <span className="font-semibold text-foreground"> cubriendo picos de demanda</span> sin contratar más personal.
+                </p>
+              </div>
+            </div>
+          </Card>
         </div>
       </div>
     </div>
